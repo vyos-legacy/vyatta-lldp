@@ -1,0 +1,16 @@
+Source: vyatta-lldp
+Section: contrib/net
+Priority: extra
+Maintainer: Vyatta Package Maintainers <maintainers@vyatta.com>
+Build-Depends: debhelper (>= 5), 
+ autotools-dev, 
+ lldpd
+Standards-Version: 3.7.2
+
+Package: vyatta-lldp
+Architecture: any
+Depends:  perl (>= 5.8.8),
+ vyatta-bash | bash (>= 3.1)
+Description: The vyatta-lldp package
+ This package has the vyatta-lldp programs, and vyatta 
+ configureation/operational templates and scripts.

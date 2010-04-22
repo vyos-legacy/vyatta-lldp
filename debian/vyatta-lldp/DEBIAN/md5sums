@@ -1,0 +1,15 @@
+5bee1349ca7093c6991dca0783c0bbfe  usr/share/doc/vyatta-lldp/NEWS.gz
+f442bb9628b3c191b9f7500dbfb0572d  usr/share/doc/vyatta-lldp/README
+904b374390bc84897df4f58d78896ac4  usr/share/doc/vyatta-lldp/changelog.Debian.gz
+904b374390bc84897df4f58d78896ac4  usr/share/doc/vyatta-lldp/changelog.gz
+4dc41838ee908560283502a90b0e9756  usr/share/doc/vyatta-lldp/copyright
+f3923aa07256f6ed0eef752b0ce213ea  usr/share/linda/overrides/vyatta-lldp
+92ca6802afbe2ed69ba28e413385b71f  usr/share/lintian/overrides/vyatta-lldp
+bc7f391fcd1237200ef0407b024251cf  opt/vyatta/share/vyatta-op/templates/show/lldp/node.def
+33b45f17a4da0307a62604bcc2830b54  opt/vyatta/share/vyatta-op/templates/show/lldp/neighbors/interface/node.def
+f1e6839947b19e53e71140359d4232dc  opt/vyatta/share/vyatta-op/templates/show/lldp/neighbors/interface/node.tag/node.def
+db5b263bb54a9f90e9621e20888966c3  opt/vyatta/share/vyatta-op/templates/show/lldp/neighbors/node.def
+169b1634e04abf59ef831829d7f4491b  opt/vyatta/share/vyatta-op/templates/show/lldp/neighbors/detail/node.def
+9db70e70bedf85304a450a5466b6b2de  opt/vyatta/share/vyatta-cfg/templates/service/lldp/node.def
+93b58740270cff7d94fc15f33e1eba58  opt/vyatta/bin/sudo-users/vyatta-show-lldp.pl
+0f542c13eaac13fe6822e564b91ffe88  opt/vyatta/sbin/vyatta-config-lldp.pl

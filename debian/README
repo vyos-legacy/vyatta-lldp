@@ -1,0 +1,7 @@
+The Debian Package vyatta-lldp
+------------------------------
+
+This package contains the vyatta-lldp project developed by vyatta. This 
+package includes the programs, plus cli operational and commands.
+
+ -- Stig Thormodsrud <stig@vyatta.com>  Sun, 28 Mar 2010

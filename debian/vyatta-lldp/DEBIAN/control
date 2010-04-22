@@ -1,0 +1,12 @@
+Package: vyatta-lldp
+Source: vyatta-lldp (0.1)
+Version: 999.dev
+Architecture: i386
+Maintainer: Vyatta Package Maintainers <maintainers@vyatta.com>
+Installed-Size: 176
+Depends: perl (>= 5.8.8), vyatta-bash | bash (>= 3.1)
+Section: contrib/net
+Priority: extra
+Description: The vyatta-lldp package
+ This package has the vyatta-lldp programs, and vyatta
+ configureation/operational templates and scripts.

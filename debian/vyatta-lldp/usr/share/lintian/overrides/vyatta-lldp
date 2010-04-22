@@ -1,0 +1,2 @@
+vyatta-lldp: file-in-unusual-dir
+vyatta-lldp: dir-or-file-in-opt
