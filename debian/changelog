@@ -1,3 +1,9 @@
+vyatta-lldp (0.2) unstable; urgency=low
+
+  * UNRELEASED
+
+ -- Stig Thormodsrud <stig@vyatta.com>  Fri, 23 Apr 2010 14:47:08 -0700
+
 vyatta-lldp (0.1) unstable; urgency=low
 
   * Initial Release.
