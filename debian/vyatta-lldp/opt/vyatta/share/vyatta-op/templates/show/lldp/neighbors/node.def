@@ -1,8 +1,0 @@
-help: Show lldp neighbors
-
-run: if [ -d $VYATTA_ACTIVE_CONFIGURATION_DIR/service/lldp ] ; then
-       sudo /opt/vyatta/bin/sudo-users/vyatta-show-lldp.pl \
-         --action=show-neighbor
-     else
-       echo LLDP not configured
-     fi

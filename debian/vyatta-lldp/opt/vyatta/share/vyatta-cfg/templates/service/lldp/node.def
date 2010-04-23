@@ -1,5 +1,0 @@
-help: Enable LLDP
-
-create: sudo /opt/vyatta/sbin/vyatta-config-lldp.pl --action=enable 
-
-delete: sudo /opt/vyatta/sbin/vyatta-config-lldp.pl --action=disable 
