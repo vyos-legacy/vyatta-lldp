@@ -47,6 +47,50 @@ sub is_running {
     return 0;
 }
 
+sub get_vyatta_platform {
+    
+    my $platform = 'Vyatta Router';
+    my $cmd;
+    
+    $cmd = 'sudo dmidecode -s chassis-manufacturer';
+    my $manu = `$cmd`;
+    chomp $manu;
+    if (defined $manu and $manu eq 'Vyatta') {
+        $cmd = 'sudo dmidecode -s system-product-name';
+        my $product = `$cmd`;
+        chomp $product;
+        if (defined $product) {
+            return "Vyatta $product";
+        }
+    } else {
+        $cmd = 'sudo dmidecode -s processor-version';
+        my $product = `$cmd`;
+        chomp $product;
+        if (defined $product) {
+            return "Vyatta Router";
+        }        
+    }
+
+    return $platform;
+}
+
+sub get_vyatta_version {
+    
+    my $version = 'vyatta unknown';
+
+    my $filename = '/opt/vyatta/etc/version';
+    open(my $FILE, '<', $filename) or die "Error: read [$filename] $!";
+
+    while (<$FILE>) {
+        if (/^Description:\s+(.*)$/) {
+            close($FILE);
+            return $1;
+        }
+    }
+    close($FILE);
+    return $version;
+}
+
 sub vyatta_enable_lldp {
 
     print "Starting lldpd...\n";
@@ -60,8 +104,11 @@ sub vyatta_enable_lldp {
         print "Error: lldpd already running.\n";
         exit 1;
     }
+    my $plat = get_vyatta_platform();
+    my $ver  = get_vyatta_version();
+    my $descr = "$plat running on $ver";
 
-    $cmd = "$daemon -v -c -f -e -s -m4";
+    $cmd = "$daemon -v -c -f -e -s -m4 -S \"$descr\" ";
     $rc = system($cmd);
 
     exit $rc;
