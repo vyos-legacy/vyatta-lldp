@@ -1,3 +1,12 @@
+vyatta-lldp (0.3) unstable; urgency=low
+
+  * Fix build dependancy on lldpd.
+  * Remove build directory.
+  * Remove build files.
+  * Add .gitignore file.
+
+ -- Stig Thormodsrud <stig@vyatta.com>  Fri, 23 Apr 2010 15:41:17 -0700
+
 vyatta-lldp (0.2) unstable; urgency=low
 
   * UNRELEASED
