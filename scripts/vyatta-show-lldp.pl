@@ -41,28 +41,28 @@ sub get_cap {
         my $cap_ref = $ref->{'chassis'}[0]->{'capability'}[$index];
         if (defined $cap_ref) {
             if ($cap_ref->{'type'} eq 'Router') {
-                $cap .= 'R';
+                $cap .= 'R' if $cap_ref->{'enabled'} eq 'on';
             }
             if ($cap_ref->{'type'} eq 'Bridge') {
-                $cap .= 'B';
+                $cap .= 'B' if $cap_ref->{'enabled'} eq 'on';
             }
             if ($cap_ref->{'type'} eq 'Wlan') {
-                $cap .= 'W';
+                $cap .= 'W' if $cap_ref->{'enabled'} eq 'on';
             }
             if ($cap_ref->{'type'} eq 'Station') {
-                $cap .= 'S';
+                $cap .= 'S' if $cap_ref->{'enabled'} eq 'on';
             }
             if ($cap_ref->{'type'} eq 'Repeater') {
-                $cap .= 'r';
+                $cap .= 'r' if $cap_ref->{'enabled'} eq 'on';
             }
             if ($cap_ref->{'type'} eq 'Telephone') {
-                $cap .= 'T';
+                $cap .= 'T' if $cap_ref->{'enabled'} eq 'on';
             }
             if ($cap_ref->{'type'} eq 'Docsis') {
-                $cap .= 'D';
+                $cap .= 'D' if $cap_ref->{'enabled'} eq 'on';
             }
             if ($cap_ref->{'type'} eq 'Other') {
-                $cap .= 'O';
+                $cap .= 'O' if $cap_ref->{'enabled'} eq 'on';
             }
         }
         $index++;
