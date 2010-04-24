@@ -27,6 +27,9 @@ use Getopt::Long;
 use POSIX;
 use File::Basename;
 
+use lib '/opt/vyatta/share/perl5';
+use Vyatta::Config;
+
 use warnings;
 use strict;
 
@@ -91,6 +94,25 @@ sub get_vyatta_version {
     return $version;
 }
 
+sub get_options {
+    
+    my $opts = '';
+    my $config = new Vyatta::Config;
+
+    $config->setLevel('service lldp'); 
+    $opts .= '-c ' if $config->exists('enable-cdp');
+    $opts .= '-e ' if $config->exists('enable-edp');
+    $opts .= '-f ' if $config->exists('enable-fdp');
+    $opts .= '-s ' if $config->exists('enable-sonmp');
+    $opts .= '-v ' if $config->exists('enable-vlan');
+
+    my $addr = $config->returnValue('management-address');
+    if (defined $addr) {
+        $opts .= "-m $addr ";
+    }
+    return $opts;
+}
+
 sub vyatta_enable_lldp {
 
     print "Starting lldpd...\n";
@@ -101,17 +123,18 @@ sub vyatta_enable_lldp {
         mkdir $chroot_dir;
     }
     if (is_running()) {
-        print "Error: lldpd already running.\n";
-        exit 1;
+        vyatta_disable_lldp();
     }
+
     my $plat = get_vyatta_platform();
     my $ver  = get_vyatta_version();
+    my $opts = get_options();
     my $descr = "$plat running on $ver";
 
-    $cmd = "$daemon -v -c -f -e -s -m4 -S \"$descr\" ";
+    $cmd = "$daemon $opts -m4 -S \"$descr\" ";
     $rc = system($cmd);
 
-    exit $rc;
+    return $rc;
 }
 
 sub vyatta_disable_lldp {
@@ -127,7 +150,7 @@ sub vyatta_disable_lldp {
     chomp $pid;
     my $rc = system("kill $pid");
 
-    exit $rc;
+    return $rc;
 }
 
 
@@ -142,11 +165,10 @@ GetOptions("action=s"    => \$action,
 
 die "Must define action\n" if ! defined $action;
 
+my $rc = 1;
+$rc =  vyatta_enable_lldp()  if $action eq 'enable';
+$rc =  vyatta_disable_lldp() if $action eq 'disable';
 
-vyatta_enable_lldp()  if $action eq 'enable';
-
-vyatta_disable_lldp() if $action eq 'disable';
-
-exit 1;
+exit $rc;
 
 # end of file

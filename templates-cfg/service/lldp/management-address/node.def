@@ -1,0 +1,6 @@
+type: ipv4
+
+help: Set management address
+
+comp_help: possible completions
+  <x.x.x.x>           Set the management IP address        
