@@ -1,5 +1,7 @@
 help: Enable LLDP
 
+priority: 985
+
 create: sudo /opt/vyatta/sbin/vyatta-config-lldp.pl --action=enable 
 
 delete: sudo /opt/vyatta/sbin/vyatta-config-lldp.pl --action=disable 
