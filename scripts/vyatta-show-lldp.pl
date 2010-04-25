@@ -96,16 +96,25 @@ sub show_lldp_neighbor {
     while (1) {
         last if ! defined $data->{interface}[$index];
         my $rec_ref = $data->{interface}[$index];
+
         my $via = $rec_ref->{'via'};
+        $via = '?' if ! $via;
+
         my $local_intf = $rec_ref->{'name'};
+        $local_intf = '?' if ! $local_intf;
+
         my $name = $rec_ref->{'chassis'}[0]->{'name'}[0]->{'content'};
         chomp $name;
         if (! defined $name or $name eq 'Not received') {
             $name = $rec_ref->{'chassis'}[0]->{'id'}[0]->{'content'};
         }
-        my $plat = $rec_ref->{'chassis'}[0]->{'descr'}[0]->{'content'};
-        my $version = '';
+        $name = 'unknown' if ! $name;
+       
         my $cap = get_cap($rec_ref);
+        $cap = '?' if ! $cap;
+
+        my $version = '';
+        my $plat = $rec_ref->{'chassis'}[0]->{'descr'}[0]->{'content'};
         if (defined $plat) {
             if ($plat =~ /(.*)\s+running on\s(.*)/) {
                 $plat = $1;
@@ -116,7 +125,12 @@ sub show_lldp_neighbor {
         } else {
             $plat = 'unknown';
         }
+
         my $port = $rec_ref->{'port'}[0]->{'id'}[0]->{'content'};
+        my $type = $rec_ref->{'port'}[0]->{'id'}[0]->{'type'};
+        if (defined $type and $type ne 'ifname') {
+            $port = $rec_ref->{'port'}[0]->{'descr'}[0]->{'content'};
+        }
         $port = 'unknown' if ! $port;
         if ($port =~ /^Ethernet(.*)$/) {
             $port = "Eth$1";
@@ -124,15 +138,10 @@ sub show_lldp_neighbor {
         if ($port =~ /^GigabitEthernet(.*)$/) {
             $port = "GigE$1";
         }
-        
-        $name = 'unknown' if ! $name;
-        $local_intf = '?' if ! $local_intf;
-        $via = '???' if ! $via;
-        $cap = '?' if ! $cap;
-        $plat = 'unknown' if ! $plat;
 
         printf($format, $name, $local_intf, $via, $cap, $plat, $port);
         #print Dumper($rec_ref);
+
         $index++;
     }
     exit 0;
