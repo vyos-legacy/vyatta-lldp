@@ -131,7 +131,7 @@ sub vyatta_enable_lldp {
     my $opts = get_options();
     my $descr = "$plat running on $ver";
 
-    $cmd = "$daemon $opts -m4 -S \"$descr\" ";
+    $cmd = "$daemon $opts -M4 -S \"$descr\" ";
     $rc = system($cmd);
 
     return $rc;
