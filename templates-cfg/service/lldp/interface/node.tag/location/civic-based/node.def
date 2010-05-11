@@ -1,0 +1,8 @@
+help: Set civic-based location data
+
+commit:expression: $VAR(./country-code/) != ""; \
+       "Must configure the country"
+
+commit:expression: $VAR(../elin/) == ""; \
+       "Can not configure both elin and civic-address"
+

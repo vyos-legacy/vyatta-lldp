@@ -1,0 +1,13 @@
+help: Set ECS ELIN number
+
+type: txt
+
+syntax:expression: pattern $VAR(@) "^[0-9]{10,25}$" ; \
+       "elin number must be between 10-25 numbers"
+
+commit:expression: $VAR(../civic-based/) == ""; \
+       "Can not configure both elin and civic-address"
+
+comp_help: possible_completions:
+ <u32>     Set the Emergency Call Service ELIN number (between 10-25 numbers)
+

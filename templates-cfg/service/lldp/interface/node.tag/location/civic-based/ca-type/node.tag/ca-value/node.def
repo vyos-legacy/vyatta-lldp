@@ -1,0 +1,7 @@
+help: Set civic address value for ca-type
+
+type: txt
+
+syntax:expression: pattern $VAR(@) "^[A-Za-z0-9\ \-\_\.\,]{0,255}$" ; \
+       "ca-value must be less than 256 characters"
+

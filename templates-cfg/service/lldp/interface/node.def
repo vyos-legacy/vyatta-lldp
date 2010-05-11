@@ -1,0 +1,12 @@
+tag:
+
+type: txt
+
+help: Set location data for interface
+
+allowed: ${vyatta_sbindir}/vyatta-interfaces.pl --show all
+
+comp_help: possible completions:
+ all       Set location data all interfaces
+ <ethX>    Set location data for interface ethX
+

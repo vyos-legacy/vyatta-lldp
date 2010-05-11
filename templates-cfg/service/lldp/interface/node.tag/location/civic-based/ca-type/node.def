@@ -1,0 +1,35 @@
+tag:
+
+type: u32
+
+help: Set the LLDP-MED Civic Address type
+
+syntax:expression: $VAR(@) >= 0 && $VAR(@) <= 128 ; \
+       "ca-type must between 0-128"
+
+commit:expression: $VAR(./ca-value/) != ""; \
+       "Must configure the ca-value for ca-type $VAR(@)"
+
+comp_help: possible completions:
+   0      Language
+   1      National subdivisions
+   2      County, parish, district
+   3      City, township
+   4      City division, borough, ward
+   5      Neighborhood, block
+   6      Street
+   16     Leading street direction
+   17     Trailing street suffix
+   18     Street suffix
+   19     House number
+   20     House number suffix
+   21     Landmark or vanity address
+   22     Additional location info
+   23     Name
+   24     Postal/ZIP code
+   25     Building
+   26     Unit
+   27     Floor
+   28     Room number
+   29     Place type
+   128    Script

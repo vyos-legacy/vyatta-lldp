@@ -34,6 +34,7 @@ use warnings;
 use strict;
 
 my $daemon   = '/usr/sbin/lldpd';
+my $control  = '/usr/sbin/lldpctl';
 my $pid_file = '/var/run/lldpd.pid';
 my $chroot_dir = '/var/run/lldpd';
 
@@ -113,6 +114,76 @@ sub get_options {
     return $opts;
 }
 
+sub vyatta_lldp_set_location_intf {
+    my ($intf) = shift;
+
+    my ($rc, $cmd) = (0, '');
+    my $config = new Vyatta::Config;
+
+    my $path = "service lldp interface $intf";
+    $config->setLevel($path); 
+    return 0 if ! $config->exists('location');
+
+    $config->setLevel("$path location"); 
+    if ($config->exists('civic-based')) {
+        $config->setLevel("$path location civic-based"); 
+        my $cc = $config->returnValue('country-code');
+        if (! defined($cc)) {
+            print "Error: must define lldp country-code\n";
+            exit 1;
+        }
+        $cmd = "$control -L \"2:$cc";
+        my @ca_types = $config->listNodes('ca-type');
+        if (scalar(@ca_types) < 1) {
+            print "Error: must define at least 1 ca-type\n";
+            exit 1;
+        }
+        foreach my $ca_type (@ca_types) {
+            $config->setLevel("$path location civic-based ca-type $ca_type"); 
+            my $ca_val = $config->returnValue('ca-value');
+            if (! defined $ca_val) {
+                print "Error: must define ca-value for [$ca_type]\n";
+                exit 1;
+            }
+            $cmd .= ":$ca_type:$ca_val";
+        }
+        $cmd .= "\"";
+    } elsif ($config->exists('elin')) {
+        my $elin = $config->returnValue('elin');
+        $cmd = "$control -L \"3:$elin\" ";
+    }
+
+    if ($intf ne 'all') {
+        $cmd .= " $intf";
+    }
+
+    $rc = system($cmd);
+    return $rc;
+}
+
+sub vyatta_lldp_set_location {
+    
+    my $config = new Vyatta::Config;
+    $config->setLevel('service lldp'); 
+    my @intfs = $config->listNodes('interface');
+    return 0 if scalar(@intfs) < 1;
+
+    my %intfs_map = map { $_ => 1 } @intfs;
+
+    sleep(1);  # daemon needs to be started before issuing control calls
+
+    my $rc = 0;
+    if ($intfs_map{'all'}) {
+        $rc += vyatta_lldp_set_location_intf('all');
+    }
+
+    foreach my $intf (@intfs) {
+        next if $intf eq 'all';  # already handled
+        $rc += vyatta_lldp_set_location_intf($intf);
+    }
+    return $rc;
+}
+
 sub vyatta_enable_lldp {
 
     print "Starting lldpd...\n";
@@ -133,6 +204,8 @@ sub vyatta_enable_lldp {
 
     $cmd = "$daemon $opts -M4 -S \"$descr\" ";
     $rc = system($cmd);
+
+    $rc = vyatta_lldp_set_location();
 
     return $rc;
 }

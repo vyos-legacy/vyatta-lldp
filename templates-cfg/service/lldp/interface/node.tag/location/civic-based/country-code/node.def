@@ -1,0 +1,9 @@
+help: Set country code
+
+type: txt
+
+syntax:expression: pattern $VAR(@) "^[[:alpha:]]{2}$" ; \
+       "country-code must be 2 characters"
+
+comp_help: possible completions:
+ <AA>      Two letter ISO 3166 country code
