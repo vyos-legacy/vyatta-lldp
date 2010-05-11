@@ -101,11 +101,13 @@ sub get_options {
     my $config = new Vyatta::Config;
 
     $config->setLevel('service lldp'); 
-    $opts .= '-c ' if $config->exists('enable-cdp');
-    $opts .= '-e ' if $config->exists('enable-edp');
-    $opts .= '-f ' if $config->exists('enable-fdp');
-    $opts .= '-s ' if $config->exists('enable-sonmp');
     $opts .= '-v ' if $config->exists('enable-vlan');
+
+    $config->setLevel('service lldp legacy-protocols'); 
+    $opts .= '-c ' if $config->exists('cdp');
+    $opts .= '-e ' if $config->exists('edp');
+    $opts .= '-f ' if $config->exists('fdp');
+    $opts .= '-s ' if $config->exists('sonmp');
 
     my $addr = $config->returnValue('management-address');
     if (defined $addr) {
