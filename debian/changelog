@@ -1,9 +1,14 @@
+vyatta-lldp (0.8) unstable; urgency=low
+
+  * Move cdp/edp/fdp/sonmp under legacy-protocols.
+
+ -- Stig Thormodsrud <stig@vyatta.com>  Mon, 11 May 2010 15:39:36 -0700
+
 vyatta-lldp (0.7) unstable; urgency=low
 
   * Add cli for LLDP-MED location data.
 
  -- Stig Thormodsrud <stig@vyatta.com>  Mon, 10 May 2010 18:46:36 -0700
-
 vyatta-lldp (0.6) unstable; urgency=low
 
   * Fix management-address parameter.
