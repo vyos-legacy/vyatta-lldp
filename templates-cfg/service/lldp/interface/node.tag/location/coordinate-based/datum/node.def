@@ -1,0 +1,13 @@
+type: txt
+
+help: Set coordinate datum type
+
+syntax:expression: $VAR(@) in "WGS84", "NAD83", "MLLW"; \
+       "must be WGS84, or NAD83, or MLLW"
+
+default: "WGS84"
+
+comp_help: possible completions:
+  WGS84             Set datum to WGS84 (default)
+  NAD83             Set datum to NAD83
+  MLLW              Set datum to NAD83/MLLW

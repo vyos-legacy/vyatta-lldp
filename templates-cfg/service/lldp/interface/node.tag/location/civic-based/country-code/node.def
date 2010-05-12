@@ -1,4 +1,4 @@
-help: Set country code
+help: Set country code [REQUIRED]
 
 type: txt
 

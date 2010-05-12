@@ -1,16 +1,13 @@
 help: Set coordinate based location
 
-type: txt
-
-syntax:expression: pattern $VAR(@) "^[0-9]{10,25}$" ; \
-       "elin number must be between 10-25 numbers"
-
 commit:expression: $VAR(../civic-based/) == ""; \
-       "Can only configure 1 location type"
+       "Can only configure 1 location type for interface $VAR(../../@)"
 
 commit:expression: $VAR(../elin/) == ""; \
-       "Can only configure 1 location type"
+       "Can only configure 1 location type for interface $VAR(../../@)"
 
-comp_help: possible_completions:
- <u32>     Set the Emergency Call Service ELIN number (between 10-25 numbers)
+commit:expression: $VAR(./longitude) != ""; \
+       "Must define longitude for interface $VAR(../../@)"
 
+commit:expression: $VAR(./latitude) != ""; \
+       "Must define latitude for interface $VAR(../../@)"

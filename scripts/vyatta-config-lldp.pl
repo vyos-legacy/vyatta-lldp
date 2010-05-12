@@ -153,6 +153,35 @@ sub vyatta_lldp_set_location_intf {
     } elsif ($config->exists('elin')) {
         my $elin = $config->returnValue('elin');
         $cmd = "$control -L \"3:$elin\" ";
+    } elsif ($config->exists('coordinate-based')) {
+        $config->setLevel("$path location coordinate-based"); 
+        my $alt = $config->returnValue('altitude');
+        my $lat = $config->returnValue('latitude');
+        my $long = $config->returnValue('longitude');
+        my $datum = $config->returnValue('datum');
+        $cmd = "$control -L \"1:";
+        foreach my $x ($lat, $long) {
+            if ($x =~ /^([-+]?[0-9]*\.?[0-9]+)([nNwWsSeE])$/) {
+                my $c = uc($2);
+                $cmd .= "$1:$c:"
+            } else {
+                print "Error: invalid coordinate format[$x]\n"
+            }
+        }
+        $alt = 0 if ! defined $alt;
+        $cmd .= "$alt:m:";
+        if (! defined $datum) {
+            $datum = "1";
+        } elsif ($datum eq "WGS84") {
+            $datum = "1";
+        } elsif ($datum eq 'NAD83') {
+            $datum = "2";
+        } elsif ($datum eq 'MLLW') {        
+            $datum = "3";
+        } else {
+            $datum = "3";
+        }
+        $cmd .= "$datum\"";
     }
 
     if ($intf ne 'all') {
@@ -160,7 +189,10 @@ sub vyatta_lldp_set_location_intf {
     }
 
     $rc = system($cmd);
-    return $rc;
+    if ($rc != 0) {
+        # commit shouldn't fail just because couldn't set location
+        print "Warning: error setting location on [$intf]\n";
+    }
 }
 
 sub vyatta_lldp_set_location {
@@ -176,14 +208,13 @@ sub vyatta_lldp_set_location {
 
     my $rc = 0;
     if ($intfs_map{'all'}) {
-        $rc += vyatta_lldp_set_location_intf('all');
+        vyatta_lldp_set_location_intf('all');
     }
 
     foreach my $intf (@intfs) {
         next if $intf eq 'all';  # already handled
-        $rc += vyatta_lldp_set_location_intf($intf);
+        vyatta_lldp_set_location_intf($intf);
     }
-    return $rc;
 }
 
 sub vyatta_enable_lldp {
@@ -207,7 +238,7 @@ sub vyatta_enable_lldp {
     $cmd = "$daemon $opts -M4 -S \"$descr\" ";
     $rc = system($cmd);
 
-    $rc = vyatta_lldp_set_location();
+    vyatta_lldp_set_location();
 
     return $rc;
 }

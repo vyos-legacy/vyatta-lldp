@@ -1,0 +1,9 @@
+type: txt
+
+help: Set longitude [REQUIRED]
+
+syntax:expression: pattern $VAR(@) "^[-+0-9\.]+[eEwW]$" ; \
+       "Invalid longitude"
+
+comp_help: possible completions:
+  <txt>    Set longitude (example "122.267255W")
