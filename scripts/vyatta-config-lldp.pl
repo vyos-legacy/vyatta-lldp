@@ -101,7 +101,7 @@ sub get_options {
     my $config = new Vyatta::Config;
 
     $config->setLevel('service lldp'); 
-    $opts .= '-v ' if $config->exists('enable-vlan');
+    $opts .= '-v ' if $config->exists('listen-vlan');
 
     $config->setLevel('service lldp legacy-protocols'); 
     $opts .= '-c ' if $config->exists('cdp');
