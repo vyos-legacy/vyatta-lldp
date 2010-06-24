@@ -103,16 +103,17 @@ sub get_options {
     $config->setLevel('service lldp'); 
     $opts .= '-v ' if $config->exists('listen-vlan');
 
+    my $addr = $config->returnValue('management-address');
+    if (defined $addr) {
+        $opts .= "-m $addr ";
+    }
+
     $config->setLevel('service lldp legacy-protocols'); 
     $opts .= '-c ' if $config->exists('cdp');
     $opts .= '-e ' if $config->exists('edp');
     $opts .= '-f ' if $config->exists('fdp');
     $opts .= '-s ' if $config->exists('sonmp');
 
-    my $addr = $config->returnValue('management-address');
-    if (defined $addr) {
-        $opts .= "-m $addr ";
-    }
     return $opts;
 }
 
