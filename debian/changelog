@@ -1,3 +1,9 @@
+vyatta-lldp (0.12) unstable; urgency=low
+
+  * Hide lldp listen-vlan node for now.
+
+ -- Stig Thormodsrud <stig@vyatta.com>  Fri, 25 Jun 2010 16:08:52 -0700
+
 vyatta-lldp (0.11) unstable; urgency=low
 
   * Fix 5736: LLDP management-address can't be customized correctly
