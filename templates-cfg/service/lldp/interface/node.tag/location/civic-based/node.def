@@ -1,10 +1,10 @@
 help: Civic-based location data
 
 commit:expression: $VAR(./country-code/) != ""; \
-       "Must configure the country"
+       "Must configure the country code."
 
 commit:expression: $VAR(../coordinate-based/) == ""; \
-       "Can only configure 1 location type for interface $VAR(../../@)"
+       "Can only configure 1 location type for interface $VAR(../../@)."
 
 commit:expression: $VAR(../elin/) == ""; \
-       "Can only configure 1 location type for interface $VAR(../../@)"
+       "Can only configure 1 location type for interface $VAR(../../@)."

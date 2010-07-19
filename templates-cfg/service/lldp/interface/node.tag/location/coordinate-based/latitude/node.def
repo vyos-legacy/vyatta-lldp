@@ -3,7 +3,6 @@ type: txt
 help: Latitude [REQUIRED]
 
 syntax:expression: pattern $VAR(@) "^[-+0-9\.]+[nNsS]$" ; \
-       "Invalid latitude"
+       "Invalid latitude."
 
-comp_help: possible completions:
-  <num>    Set latitude (example "37.524449N")
+val_help: <latitude> ; Latitude (example "37.524449N")

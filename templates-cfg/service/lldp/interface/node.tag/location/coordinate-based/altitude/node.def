@@ -3,8 +3,6 @@ type: txt
 help: Altitude in meters
 
 syntax:expression: pattern $VAR(@) "^[-+0-9\.]+$" ; \
-       "Invalid altitude"
+       "Invalid altitude."
 
-comp_help: possible completions:
-  <num>    Set altitue in meters
-
+val_help: [+-]<meters> ; Altitude in meters

@@ -1,13 +1,13 @@
 help: Coordinate based location
 
 commit:expression: $VAR(../civic-based/) == ""; \
-       "Can only configure 1 location type for interface $VAR(../../@)"
+       "Can only configure 1 location type for interface $VAR(../../@)."
 
 commit:expression: $VAR(../elin/) == ""; \
-       "Can only configure 1 location type for interface $VAR(../../@)"
+       "Can only configure 1 location type for interface $VAR(../../@)."
 
 commit:expression: $VAR(./longitude) != ""; \
-       "Must define longitude for interface $VAR(../../@)"
+       "Must define longitude for interface $VAR(../../@)."
 
 commit:expression: $VAR(./latitude) != ""; \
-       "Must define latitude for interface $VAR(../../@)"
+       "Must define latitude for interface $VAR(../../@)."
