@@ -2,7 +2,7 @@ tag:
 
 type: u32
 
-help: Set the LLDP-MED Civic Address type [REQUIRED]
+help: LLDP-MED Civic Address type [REQUIRED]
 
 syntax:expression: $VAR(@) >= 0 && $VAR(@) <= 128 ; \
        "ca-type must between 0-128"

@@ -1,6 +1,6 @@
 type: txt
 
-help: Set altitude in meters
+help: Altitude in meters
 
 syntax:expression: pattern $VAR(@) "^[-+0-9\.]+$" ; \
        "Invalid altitude"

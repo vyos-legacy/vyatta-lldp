@@ -2,7 +2,7 @@ tag:
 
 type: txt
 
-help: Set location data for interface
+help: Location data for interface
 
 allowed: ${vyatta_sbindir}/vyatta-interfaces.pl --show all
 

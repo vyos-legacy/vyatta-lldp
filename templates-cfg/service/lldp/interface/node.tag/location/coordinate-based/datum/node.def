@@ -1,6 +1,6 @@
 type: txt
 
-help: Set coordinate datum type
+help: Coordinate datum type
 
 syntax:expression: $VAR(@) in "WGS84", "NAD83", "MLLW"; \
        "must be WGS84, or NAD83, or MLLW"

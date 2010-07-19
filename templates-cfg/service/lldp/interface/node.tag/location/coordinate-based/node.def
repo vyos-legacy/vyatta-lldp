@@ -1,4 +1,4 @@
-help: Set coordinate based location
+help: Coordinate based location
 
 commit:expression: $VAR(../civic-based/) == ""; \
        "Can only configure 1 location type for interface $VAR(../../@)"

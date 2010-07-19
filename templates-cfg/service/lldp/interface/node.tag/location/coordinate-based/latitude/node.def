@@ -1,6 +1,6 @@
 type: txt
 
-help: Set latitude [REQUIRED]
+help: Latitude [REQUIRED]
 
 syntax:expression: pattern $VAR(@) "^[-+0-9\.]+[nNsS]$" ; \
        "Invalid latitude"

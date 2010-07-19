@@ -1,4 +1,4 @@
-help: Set civic-based location data
+help: Civic-based location data
 
 commit:expression: $VAR(./country-code/) != ""; \
        "Must configure the country"
