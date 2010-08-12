@@ -2,7 +2,7 @@ help: Show lldp neighbors for interface
 
 allowed: /opt/vyatta/sbin/vyatta-netflow.pl --action=list-intf
 
-run: if [ -d $VYATTA_ACTIVE_CONFIGURATION_DIR/service/lldp ] ; then
+run: if cli-shell-api existsActive service lldp; then
        sudo /opt/vyatta/bin/sudo-users/vyatta-show-lldp.pl \
          --action=show-neighbor --intf="$5"
      else
