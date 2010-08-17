@@ -1,3 +1,9 @@
+vyatta-lldp (0.16) unstable; urgency=low
+
+  * update help text to use val_help
+
+ -- An-Cheng Huang <ancheng@vyatta.com>  Tue, 17 Aug 2010 15:31:26 -0700
+
 vyatta-lldp (0.15) unstable; urgency=low
 
   * remove CLI backend env variables usage
