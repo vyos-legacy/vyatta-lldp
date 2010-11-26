@@ -1,3 +1,10 @@
+vyatta-lldp (0.18) unstable; urgency=low
+
+  * remove deprecated linda file
+  * update gitignore list
+
+ -- Stephen Hemminger <stephen.hemminger@vyatta.com>  Fri, 26 Nov 2010 11:11:39 -0800
+
 vyatta-lldp (0.17) unstable; urgency=low
 
   * UNRELEASED
