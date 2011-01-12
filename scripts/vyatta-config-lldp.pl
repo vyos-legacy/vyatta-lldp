@@ -56,21 +56,28 @@ sub get_vyatta_platform {
     my $platform = 'Vyatta Router';
     my $cmd;
     
-    $cmd = 'sudo dmidecode -s chassis-manufacturer';
+    $cmd = 'sudo dmidecode -s system-manufacturer';
     my $manu = `$cmd`;
     chomp $manu;
-    if (defined $manu and $manu eq 'Vyatta') {
+    if (defined $manu and $manu =~ /Vyatta/) {
         $cmd = 'sudo dmidecode -s system-product-name';
         my $product = `$cmd`;
         chomp $product;
         if (defined $product) {
-            return "Vyatta $product";
+            if ($product =~ /Vyatta/) {
+                return $product;
+            } else {
+                return "Vyatta $product";
+            }
         }
     } else {
         $cmd = 'sudo dmidecode -s processor-version';
         my $product = `$cmd`;
         chomp $product;
         if (defined $product) {
+            # leave out $product for now since it's 
+            # often not a friendly format such as:
+            # Vyatta Router (Pentium(R) Pro?00000000000000000000000000000000?0
             return "Vyatta Router";
         }        
     }
