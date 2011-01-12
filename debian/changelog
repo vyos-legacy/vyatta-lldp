@@ -1,3 +1,10 @@
+vyatta-lldp (0.18+mendocino2) unstable; urgency=low
+
+  * hack get_vyatta_platform() to better handle appliance inconsistent
+    bios values.
+
+ -- Stig Thormodsrud <stig@vyatta.com>  Tue, 11 Jan 2011 17:30:27 -0800
+
 vyatta-lldp (0.18+mendocino1) unstable; urgency=low
 
   * new branch
