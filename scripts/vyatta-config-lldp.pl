@@ -114,6 +114,21 @@ sub get_options {
     if (defined $addr) {
         $opts .= "-m $addr ";
     }
+    
+    my @listen_ifs = $config->returnValues('listen-on');
+    if (scalar(@listen_ifs) > 0) {
+        $opts .= "-I " . join(',', @listen_ifs) . " ";
+    }
+    my $snmp = $config->exists('snmp enable');
+    if (defined $snmp){
+      $config->setLevel('');
+      my $sys_snmp = $config->exists('service snmp');
+      if (!defined $sys_snmp){
+        die  "SNMP must be configured to enable LLDP SNMP\n";
+      }
+      $config->setLevel('service lldp'); 
+      $opts .= "-x ";  
+    }
 
     $config->setLevel('service lldp legacy-protocols'); 
     $opts .= '-c ' if $config->exists('cdp');
@@ -243,7 +258,7 @@ sub vyatta_enable_lldp {
     my $opts = get_options();
     my $descr = "$plat running on $ver";
 
-    $cmd = "$daemon $opts -M4 -S \"$descr\" ";
+    $cmd = "$daemon $opts -M4 -S \"$descr\" -P $plat ";
     $rc = system($cmd);
 
     vyatta_lldp_set_location();
