@@ -115,10 +115,6 @@ sub get_options {
         $opts .= "-m $addr ";
     }
     
-    my @listen_ifs = $config->returnValues('listen-on');
-    if (scalar(@listen_ifs) > 0) {
-        $opts .= "-I " . join(',', @listen_ifs) . " ";
-    }
     my $snmp = $config->exists('snmp enable');
     if (defined $snmp){
       $config->setLevel('');
@@ -224,6 +220,7 @@ sub vyatta_lldp_set_location {
     $config->setLevel('service lldp'); 
     my @intfs = $config->listNodes('interface');
     return 0 if scalar(@intfs) < 1;
+    return 0 if $config->exists('disable');
 
     my %intfs_map = map { $_ => 1 } @intfs;
 
@@ -238,6 +235,36 @@ sub vyatta_lldp_set_location {
         next if $intf eq 'all';  # already handled
         vyatta_lldp_set_location_intf($intf);
     }
+}
+
+sub get_interface_list {
+
+    my $intf_string = undef;
+
+    my $config = new Vyatta::Config;
+    $config->setLevel('service lldp'); 
+    my @intfs = $config->listNodes('interface');
+    return if scalar(@intfs) < 1;
+
+    my $disable_cnt = 0;
+    foreach my $intf (@intfs) {
+        $config->setLevel("service lldp interface $intf"); 
+        my $disable = $config->exists('disable');
+        if ($intf eq 'all') {
+            if (defined $disable) {
+                print "Ingoring 'disable' on keyword 'all'\n";
+            }
+        } else {
+            if (defined $disable) {
+                if ($disable_cnt < 1) {
+                    $intf_string = "-I *";
+                }
+                $disable_cnt++;
+                $intf_string .= ",!$intf";
+            }
+        }
+    }
+    return $intf_string;
 }
 
 sub vyatta_enable_lldp {
@@ -257,8 +284,10 @@ sub vyatta_enable_lldp {
     my $ver  = get_vyatta_version();
     my $opts = get_options();
     my $descr = "$plat running on $ver";
+    my $intfs = get_interface_list();
 
     $cmd = "$daemon $opts -M4 -S \"$descr\" -P $plat ";
+    $cmd .= $intfs if defined $intfs;
     $rc = system($cmd);
 
     vyatta_lldp_set_location();

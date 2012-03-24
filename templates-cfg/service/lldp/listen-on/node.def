@@ -1,8 +1,0 @@
-multi:
-type:txt
-help: Interface to listen on for LLDP messages
-comp_help: Multiple interfaces may be specified.
-Wildcards are accepted e.g. eth*
-Negation can be done with the ! e.g. !eth1
-If an interface is both enabled and disabled it is ultimately disabled
-allowed: /opt/vyatta/sbin/vyatta-interfaces.pl --show=all
