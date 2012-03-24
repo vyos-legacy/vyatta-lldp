@@ -1,3 +1,10 @@
+vyatta-lldp (0.24) unstable; urgency=low
+
+  * Integrate Stig's patch for disabling LLDP on specific interfaces
+    instead
+
+ -- John Southworth <john.southworth@vyatta.com>  Sat, 24 Mar 2012 08:04:21 -0700
+
 vyatta-lldp (0.23) unstable; urgency=low
 
   * Expose new functionallity of lldpd
