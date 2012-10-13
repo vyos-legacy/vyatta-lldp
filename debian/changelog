@@ -1,3 +1,9 @@
+vyatta-lldp (0.25) unstable; urgency=low
+
+  * new branch
+
+ -- John Southworth <john.southworth@vyatta.com>  Fri, 12 Oct 2012 19:47:33 -0700
+
 vyatta-lldp (0.24) unstable; urgency=low
 
   * Integrate Stig's patch for disabling LLDP on specific interfaces
