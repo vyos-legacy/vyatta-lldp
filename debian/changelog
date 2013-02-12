@@ -1,3 +1,9 @@
+vyatta-lldp (0.25+daisy2) unstable; urgency=low
+
+  * Rebuild against new net-snmp
+
+ -- James Davidson <james.davidson@vyatta.com>  Tue, 12 Feb 2013 14:12:30 -0800
+
 vyatta-lldp (0.25+daisy1) unstable; urgency=low
 
   * create daisy branch
