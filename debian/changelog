@@ -1,3 +1,9 @@
+vyatta-lldp (0.25+hydrogen1) unstable; urgency=low
+
+  * New branch
+
+ -- Daniil Baturin <daniil@baturin.org>  Sun, 17 Nov 2013 00:30:16 +0100
+
 vyatta-lldp (0.25+daisy2) unstable; urgency=low
 
   * Rebuild against new net-snmp
