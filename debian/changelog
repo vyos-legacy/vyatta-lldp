@@ -1,3 +1,9 @@
+vyatta-lldp (0.25+vyos2+lithium4) unstable; urgency=low
+
+  * vyatta-lldp: update dh_gencontrol with new development build flag
+
+ -- Alex Harpin <development@landsofshadow.co.uk>  Fri, 19 Jun 2015 07:34:28 +0100
+ 
 vyatta-lldp (0.25+vyos2+lithium3) unstable; urgency=low
 
   [ Alex Harpin ]
