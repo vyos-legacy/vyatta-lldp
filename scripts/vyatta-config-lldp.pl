@@ -51,43 +51,9 @@ sub is_running {
     return 0;
 }
 
-sub get_vyatta_platform {
-    
-    my $platform = 'Vyatta Router';
-    my $cmd;
-    
-    $cmd = 'sudo dmidecode -s system-manufacturer';
-    my $manu = `$cmd`;
-    chomp $manu;
-    if (defined $manu and $manu =~ /Vyatta/) {
-        $cmd = 'sudo dmidecode -s system-product-name';
-        my $product = `$cmd`;
-        chomp $product;
-        if (defined $product) {
-            if ($product =~ /Vyatta/) {
-                return $product;
-            } else {
-                return "Vyatta $product";
-            }
-        }
-    } else {
-        $cmd = 'sudo dmidecode -s processor-version';
-        my $product = `$cmd`;
-        chomp $product;
-        if (defined $product) {
-            # leave out $product for now since it's 
-            # often not a friendly format such as:
-            # Vyatta Router (Pentium(R) Pro?00000000000000000000000000000000?0
-            return "Vyatta Router";
-        }        
-    }
-
-    return $platform;
-}
-
 sub get_vyatta_version {
     
-    my $version = 'vyatta unknown';
+    my $version = 'unknown';
 
     my $filename = '/opt/vyatta/etc/version';
     open(my $FILE, '<', $filename) or die "Error: read [$filename] $!";
@@ -280,10 +246,10 @@ sub vyatta_enable_lldp {
         vyatta_disable_lldp();
     }
 
-    my $plat = get_vyatta_platform();
+    my $plat = "VyOS";
     my $ver  = get_vyatta_version();
     my $opts = get_options();
-    my $descr = "$plat running on $ver";
+    my $descr = "$plat $ver";
     my $intfs = get_interface_list();
 
     $cmd = "$daemon $opts -M4 -S \"$descr\" -P $plat ";
