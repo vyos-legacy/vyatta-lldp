@@ -83,10 +83,10 @@ sub get_options {
     }
     
     my $snmp = $config->exists('snmp enable');
-    if (defined $snmp){
+    if (defined $snmp) {
       $config->setLevel('');
       my $sys_snmp = $config->exists('service snmp');
-      if (!defined $sys_snmp){
+      if (!defined $sys_snmp) {
         die  "SNMP must be configured to enable LLDP SNMP\n";
       }
       $config->setLevel('service lldp'); 
