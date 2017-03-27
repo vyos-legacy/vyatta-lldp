@@ -75,6 +75,7 @@ sub get_options {
 
     $config->setLevel('service lldp'); 
     $opts .= '-v ' if $config->exists('listen-vlan');
+    $opts .= '-r ' if $config->exists('receive-only');
 
     my $addr = $config->returnValue('management-address');
     if (defined $addr) {
