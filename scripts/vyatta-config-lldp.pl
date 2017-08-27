@@ -119,7 +119,7 @@ sub vyatta_lldp_set_location_intf {
             print "Error: must define lldp country-code\n";
             exit 1;
         }
-        $cmd = "$control -L \"2:$cc";
+        $cmd = "$control \"2:$cc";
         my @ca_types = $config->listNodes('ca-type');
         if (scalar(@ca_types) < 1) {
             print "Error: must define at least 1 ca-type\n";
@@ -137,14 +137,14 @@ sub vyatta_lldp_set_location_intf {
         $cmd .= "\"";
     } elsif ($config->exists('elin')) {
         my $elin = $config->returnValue('elin');
-        $cmd = "$control -L \"3:$elin\" ";
+        $cmd = "$control \"3:$elin\" ";
     } elsif ($config->exists('coordinate-based')) {
         $config->setLevel("$path location coordinate-based"); 
         my $alt = $config->returnValue('altitude');
         my $lat = $config->returnValue('latitude');
         my $long = $config->returnValue('longitude');
         my $datum = $config->returnValue('datum');
-        $cmd = "$control -L \"1:";
+        $cmd = "$control \"1:";
         foreach my $x ($lat, $long) {
             if ($x =~ /^([-+]?[0-9]*\.?[0-9]+)([nNwWsSeE])$/) {
                 my $c = uc($2);
