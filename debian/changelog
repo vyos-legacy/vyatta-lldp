@@ -1,3 +1,9 @@
+vyatta-lldp (1.2.0-1) stable; urgency=medium
+
+  * New branch.
+
+ -- Daniil Baturin <daniil@baturin.org>  Fri, 28 Sep 2018 21:59:27 +0200
+
 vyatta-lldp (0.25+vyos2+current1) unstable; urgency=medium
 
   [ Thomas Jepp ]
