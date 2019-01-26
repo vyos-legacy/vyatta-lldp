@@ -59,7 +59,7 @@ sub get_vyatta_version {
     open(my $FILE, '<', $filename) or die "Error: read [$filename] $!";
 
     while (<$FILE>) {
-        if (/^Description:\s+(.*)$/) {
+        if (/^Version:\s+(.*)$/) {
             close($FILE);
             return $1;
         }
